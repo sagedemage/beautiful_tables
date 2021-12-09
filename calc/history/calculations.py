@@ -8,12 +8,6 @@ class Calculations:
     history = []
     d = {"operations": [], "value1": [], "value2": [], "result": []}
 
-    # @staticmethod
-    # def write_in_csv_file():
-    # Calculations.df = pd.DataFrame(Calculations.d)
-    # Calculations.df.to_csv("output.csv", index=False)
-    # return True
-
     @staticmethod
     def count_history():
         """Counting the number of items in the history"""

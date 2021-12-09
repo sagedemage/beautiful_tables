@@ -1,0 +1,8 @@
+operations,value1,value2,result
+addition,1,1,2.0
+addition,2,2,4.0
+subtraction,1,1,0.0
+multiplication,2,2,4.0
+division,1,2,0.5
+addition,1,0,1.0
+division,1,0,None

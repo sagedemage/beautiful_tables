@@ -6,6 +6,7 @@ import pandas as pd
 class Calculations:
     """Calculator class"""
     history = []
+    csv_history = []
     table = {"operations": [], "value1": [], "value2": [], "result": []}
 
     @staticmethod
@@ -27,6 +28,17 @@ class Calculations:
         return True
 
     @staticmethod
+    def add_history(class_object):
+        """Add an object to the history"""
+        Calculations.history.append(class_object)
+        return True
+
+    @staticmethod
+    def clear_csv_history():
+        """ Clears the history in csv history list """
+        Calculations.csv_history.clear()
+
+    @staticmethod
     def put_history_to_csv(operation, value1, value2, result):
         """Write the history to csv file"""
         Calculations.table["operations"].append(operation)
@@ -46,22 +58,16 @@ class Calculations:
         value1 = dataframe["value1"]
         value2 = dataframe["value2"]
         result = dataframe["result"]
-        Calculations.clear_history()
+        Calculations.clear_csv_history()
         for i in range(len(result)):
             item = [operations[i], value1[i], value2[i], result[i]]
-            Calculations.history.append(item)
+            Calculations.csv_history.append(item)
         return True
 
     @staticmethod
     def get_history():
         """Get Calculation history"""
-        return Calculations.history
-
-    @staticmethod
-    def add_history(class_object):
-        """Add an object to the history"""
-        Calculations.history.append(class_object)
-        return True
+        return Calculations.csv_history
 
     @staticmethod
     def get_first_calculation():

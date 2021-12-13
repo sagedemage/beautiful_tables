@@ -3,7 +3,7 @@
 	{{ super() }}
 {% endblock %}
 {% block content %}
-<table class="table">
+<table class="table" id="data">
 	<thead class="thead-dark">
 		<tr>
 			<th>{{operation}}</th>
@@ -21,4 +21,11 @@
 	</tr>
 {% endfor %}
 </table>
+{% block scripts %}
+  <script>
+    $(document).ready(function () {
+      $('#data').DataTable();
+    });
+  </script>
+{% endblock %}
 {% endblock %}

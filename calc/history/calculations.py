@@ -53,7 +53,7 @@ class Calculations:
     def read_csv_file():
         # pylint: disable=consider-using-enumerate
         """Read the history from csv and put it into the history """
-        dataframe = pd.read_csv('output.csv')
+        dataframe = pd.read_csv("output.csv")
         operations = dataframe["operations"]
         value1 = dataframe["value1"]
         value2 = dataframe["value2"]

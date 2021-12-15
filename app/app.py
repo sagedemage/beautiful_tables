@@ -1,7 +1,6 @@
 """Web Application Program"""
 from flask import Flask, render_template, request, flash
 from calc.calculator import Calculator
-from calc.history.calculations import Calculations
 
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
@@ -25,8 +24,11 @@ def form():
 
         if value1 == "" or value2 == "":
             flash("Input Empty Error!", "error")
+            Calculator.read_csv_file()
+            items = Calculator.get_history()
             return render_template('result.html', value1=value1,
-                                   value2=value2, operation=operation, result="")
+                                   value2=value2, operation=operation, result="",
+                                   items=items)
 
         getattr(Calculator, operation)(value1, (value2,))
         result = ""
@@ -35,14 +37,20 @@ def form():
             flash("Division by Zero Error!", "error")
             result = "None"
             Calculator.put_history_to_csv(operation, value1, value2, result)
+            Calculator.read_csv_file()
+            items = Calculator.get_history()
             return render_template('result.html', value1=value1,
-                                   value2=value2, operation=operation, result=result)
+                                   value2=value2, operation=operation, result=result,
+                                   items=items)
         else:
             result = str(Calculator.get_last_calculation())
             flash("Success!", "success")
             Calculator.put_history_to_csv(operation, value1, value2, result)
+            Calculator.read_csv_file()
+            items = Calculator.get_history()
             return render_template('result.html', value1=value1,
-                                   value2=value2, operation=operation, result=result)
+                                   value2=value2, operation=operation, result=result,
+                                   items=items)
     else:
         return render_template('form.html')
 
@@ -57,16 +65,3 @@ def result_message():
     message = operation + " of " + value1 + " " + value2 + " is " + result
     flash('You were successfully logged in')
     return message
-
-
-@app.route('/history')
-def history_table():
-    """Display the calculation history"""
-    Calculations.read_csv_file()
-    operation = "operations"
-    value1 = "value1"
-    value2 = "value2"
-    result = "result"
-    items = Calculations.get_history()
-    return render_template('history.html', items=items, operation=operation, value1=value1,
-                           value2=value2, result=result)

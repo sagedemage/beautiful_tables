@@ -92,3 +92,8 @@ def test_put_history_to_csv():
     """Add items to history"""
     Calculator.put_history_to_csv("addition", 1, 2, 3)
     Calculator.put_history_to_csv("subtraction", 4, 2, 2)
+
+
+def test_get_history():
+    """Test getting history"""
+    assert isinstance(Calculator.get_history(), list)
